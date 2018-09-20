@@ -6,12 +6,12 @@ using System.Security;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EditTools")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("EditingTools")]
+[assembly: AssemblyDescription("Word Addin Editing Tools")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EditTools")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("Aaron Dalton")]
+[assembly: AssemblyProduct("EditingTools")]
+[assembly: AssemblyCopyright("Aaron Dalton")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

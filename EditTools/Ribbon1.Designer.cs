@@ -51,13 +51,13 @@
             this.btn_WordFreq = this.Factory.CreateRibbonButton();
             this.btn_ProperNouns = this.Factory.CreateRibbonButton();
             this.edit_MinPhraseLen = this.Factory.CreateRibbonEditBox();
+            this.edit_MaxPhraseLen = this.Factory.CreateRibbonEditBox();
             this.btn_PhraseFrequency = this.Factory.CreateRibbonButton();
             this.grp_Finishing = this.Factory.CreateRibbonGroup();
             this.btn_AcceptFormatting = this.Factory.CreateRibbonButton();
             this.group4 = this.Factory.CreateRibbonGroup();
             this.dd_Boilerplate = this.Factory.CreateRibbonDropDown();
             this.btn_ApplyBoilerplate = this.Factory.CreateRibbonButton();
-            this.edit_MaxPhraseLen = this.Factory.CreateRibbonEditBox();
             this.EditingTools.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -195,6 +195,12 @@
             this.edit_MinPhraseLen.Name = "edit_MinPhraseLen";
             this.edit_MinPhraseLen.Text = null;
             // 
+            // edit_MaxPhraseLen
+            // 
+            this.edit_MaxPhraseLen.Label = "Max. Phrase Length";
+            this.edit_MaxPhraseLen.Name = "edit_MaxPhraseLen";
+            this.edit_MaxPhraseLen.Text = null;
+            // 
             // btn_PhraseFrequency
             // 
             this.btn_PhraseFrequency.Label = "Phrase Frequency List";
@@ -235,11 +241,6 @@
             this.btn_ApplyBoilerplate.ScreenTip = "Click to apply selected comment to the selected text; Use the \"Settings\" button t" +
     "o add/remove/edit boilerplate";
             this.btn_ApplyBoilerplate.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_ApplyBoilerplate_Click);
-            // 
-            // edit_MaxPhraseLen
-            // 
-            this.edit_MaxPhraseLen.Label = "Max. Phrase Length";
-            this.edit_MaxPhraseLen.Name = "edit_MaxPhraseLen";
             // 
             // Ribbon1
             // 

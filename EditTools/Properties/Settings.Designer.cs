@@ -12,7 +12,7 @@ namespace EditTools.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -86,6 +86,50 @@ namespace EditTools.Properties {
             }
             set {
                 this["maxphraselen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Anthony Duguid")]
+        public string App_Author {
+            get {
+                return ((string)(this["App_Author"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/")]
+        public string App_PathNewIssue {
+            get {
+                return ((string)(this["App_PathNewIssue"]));
+            }
+            set {
+                this["App_PathNewIssue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/")]
+        public string App_PathReadMe {
+            get {
+                return ((string)(this["App_PathReadMe"]));
+            }
+            set {
+                this["App_PathReadMe"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime App_ReleaseDate {
+            get {
+                return ((global::System.DateTime)(this["App_ReleaseDate"]));
+            }
+            set {
+                this["App_ReleaseDate"] = value;
             }
         }
     }
