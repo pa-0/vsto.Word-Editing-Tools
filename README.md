@@ -1,4 +1,4 @@
-# editing-tools
+# Word Editing Tools
 
 ![Screen Capture](screen-capture.jpg)
 
