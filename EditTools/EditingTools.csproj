@@ -292,6 +292,12 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Ribbon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ribbon.Designer.cs">
+      <DependentUpon>Ribbon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\AssemblyInfo.cs" />
     <Compile Include="Scripts\DoubleMetaphone.cs" />
     <Compile Include="Forms\ImportDialog.cs">
@@ -324,6 +330,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ribbon.resx">
+      <DependentUpon>Ribbon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TaskPane\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
@@ -376,8 +385,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Ribbon - Copy.xml" />
-    <Content Include="Ribbon.xml" />
+    <Content Include="Ribbon_new_full.xml" />
+    <Content Include="Ribbon_new.xml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

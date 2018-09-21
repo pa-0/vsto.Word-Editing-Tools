@@ -15,7 +15,7 @@ using java.util;
 
 namespace EditTools
 {
-    public partial class Ribbon1
+    public partial class Ribbon
     {
         public edu.stanford.nlp.tagger.maxent.MaxentTagger tagger;
         //public edu.stanford.nlp.parser.lexparser.LexicalizedParser lp;

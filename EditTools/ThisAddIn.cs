@@ -29,10 +29,10 @@ namespace EditTools
         /// This method is used to create the ribbon
         /// </summary>
         /// <returns></returns>
-        protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
-        {
-            return new Ribbon();
-        }
+        //protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
+        //{
+        //    return new Scripts.Ribbon();
+        //}
 
         #region VSTO generated code
 
