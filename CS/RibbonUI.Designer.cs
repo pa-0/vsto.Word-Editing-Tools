@@ -1,13 +1,13 @@
 ﻿namespace EditTools
 {
-    partial class Ribbon : Microsoft.Office.Tools.Ribbon.RibbonBase
+    partial class RibbonUI : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public Ribbon()
+        public RibbonUI()
             : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
@@ -294,9 +294,9 @@
 
     partial class ThisRibbonCollection
     {
-        internal Ribbon Ribbon1
+        internal RibbonUI Ribbon1
         {
-            get { return this.GetRibbon<Ribbon>(); }
+            get { return this.GetRibbon<RibbonUI>(); }
         }
     }
 }

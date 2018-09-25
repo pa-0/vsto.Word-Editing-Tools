@@ -292,7 +292,13 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Ribbon1.cs" />
+    <Compile Include="RibbonUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RibbonUI.Designer.cs">
+      <DependentUpon>RibbonUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbon.cs" />
     <Compile Include="Scripts\AssemblyInfo.cs" />
     <Compile Include="Scripts\DoubleMetaphone.cs" />
     <Compile Include="Forms\ImportDialog.cs">
@@ -325,6 +331,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RibbonUI.resx">
+      <DependentUpon>RibbonUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TaskPane\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
@@ -377,7 +386,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ribbon1.xml" />
+    <EmbeddedResource Include="Ribbon.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo.png" />

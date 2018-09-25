@@ -89,9 +89,8 @@
 							onChange="OnChange"
 							getText="GetLabelText"
 							sizeString= "XXX"
-							maxLength="1"
-							screentip="Revision Character"
-							supertip="This character will appear in the middle of the triangle."
+							screentip="Min. Phrase Length"
+							supertip="Min. Phrase Length..."
 						/>
 					<editBox
 							id="txtMaxPhraseLen"
@@ -99,9 +98,8 @@
 							onChange="OnChange"
 							getText="GetLabelText"
 							sizeString= "XXX"
-							maxLength="1"
-							screentip="Revision Character"
-							supertip="This character will appear in the middle of the triangle."
+							screentip="Max. Phrase Length"
+							supertip="Max. Phrase Length..."
 						/>
 					<button
 							id="btnPhraseFrequencyList"

@@ -31,7 +31,7 @@ namespace EditTools
         /// <returns></returns>
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
-            return new Ribbon1();
+            return new Ribbon();
         }
 
         #region VSTO generated code

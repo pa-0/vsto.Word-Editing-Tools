@@ -22,7 +22,7 @@ namespace EditTools
             dgv_Boilerplate.Columns["col_Value"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgv_Boilerplate.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
-            StringCollection strings = Properties.Settings.Default.boilerplate;
+            StringCollection strings = Properties.Settings.Default.Options_Boilerplate;
             Dictionary<string, string> dict = new Dictionary<string, string>();
 
             for (int i = 0; i < strings.Count - 1; i+=2)
@@ -52,8 +52,8 @@ namespace EditTools
                     strings.Add((string)row.Cells[1].Value);
                 }
             }
-            Properties.Settings.Default.boilerplate.Clear();
-            Properties.Settings.Default.boilerplate = strings;
+            Properties.Settings.Default.Options_Boilerplate.Clear();
+            Properties.Settings.Default.Options_Boilerplate = strings;
 
             Properties.Settings.Default.Save();
 

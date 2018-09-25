@@ -26,12 +26,12 @@ namespace EditTools.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public string mindist {
+        public string Options_DistanceMin {
             get {
-                return ((string)(this["mindist"]));
+                return ((string)(this["Options_DistanceMin"]));
             }
             set {
-                this["mindist"] = value;
+                this["Options_DistanceMin"] = value;
             }
         }
         
@@ -44,48 +44,48 @@ namespace EditTools.Properties {
   <string>(s)</string>
   <string>AER style does not support the use of ""(s)."" It is unnecessary. Both the Alberta and Canada Interpretation Acts state that words in the singular include the plural and vice-versa. Just use the plural.</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection boilerplate {
+        public global::System.Collections.Specialized.StringCollection Options_Boilerplate {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["boilerplate"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["Options_Boilerplate"]));
             }
             set {
-                this["boilerplate"] = value;
+                this["Options_Boilerplate"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("English (Canada)")]
-        public string lastlang {
+        public string Options_ProofLanguage {
             get {
-                return ((string)(this["lastlang"]));
+                return ((string)(this["Options_ProofLanguage"]));
             }
             set {
-                this["lastlang"] = value;
+                this["Options_ProofLanguage"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public uint minphraselen {
+        public uint Options_PhraseLengthMin {
             get {
-                return ((uint)(this["minphraselen"]));
+                return ((uint)(this["Options_PhraseLengthMin"]));
             }
             set {
-                this["minphraselen"] = value;
+                this["Options_PhraseLengthMin"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("6")]
-        public uint maxphraselen {
+        public uint Options_PhraseLengthMax {
             get {
-                return ((uint)(this["maxphraselen"]));
+                return ((uint)(this["Options_PhraseLengthMax"]));
             }
             set {
-                this["maxphraselen"] = value;
+                this["Options_PhraseLengthMax"] = value;
             }
         }
         
@@ -100,7 +100,7 @@ namespace EditTools.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/Office-projects/Word-Editing-Tools/issues/new")]
         public string App_PathNewIssue {
             get {
                 return ((string)(this["App_PathNewIssue"]));
@@ -112,7 +112,7 @@ namespace EditTools.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/Office-projects/Word-Editing-Tools/blob/master/README.md")]
         public string App_PathReadMe {
             get {
                 return ((string)(this["App_PathReadMe"]));
@@ -131,6 +131,18 @@ namespace EditTools.Properties {
             }
             set {
                 this["App_ReleaseDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("wdEnglishCanadian")]
+        public global::Microsoft.Office.Interop.Word.WdLanguageID Options_ProofLanguageID {
+            get {
+                return ((global::Microsoft.Office.Interop.Word.WdLanguageID)(this["Options_ProofLanguageID"]));
+            }
+            set {
+                this["Options_ProofLanguageID"] = value;
             }
         }
     }
