@@ -9,18 +9,6 @@ This VSTO Add-In is used for various editing and proofing tools including: one-c
 
 ![Screen Capture](screen-capture.jpg)
 
-These are just a couple tools I coded for use where I work. 
-
-Features include a
-
-* one-click language applicator,
-* "singular data" finder,
-* word list generator,
-* word frequency generator,
-* proper noun discrepancy checker,
-* one-click "accept formatting changes," and
-* comment boilerplate manager.
-
 The language applicator applies the language to *all* text, including notes, headers, and footers. Text boxes and frames may be skipped. I haven't done extensive testing around those.
 
 The proper noun checker looks for proper nouns that sound similar or that differ by a customizeable editing distance. Useful for catching common typos in names.
