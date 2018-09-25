@@ -1,4 +1,4 @@
-# Word Editing Tools
+# Editing Tools
 
 This VSTO Add-In is used for various editing and proofing tools including: one-click language applicator, "singular data" finder, word list generator, word frequency generator, proper noun discrepancy checker, one-click "accept formatting changes," and comment boilerplate manager.
 
