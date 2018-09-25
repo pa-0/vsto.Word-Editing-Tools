@@ -33,7 +33,7 @@
       <Value Profile="(Default)">https://github.com/</Value>
     </Setting>
     <Setting Name="App_ReleaseDate" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">09/25/2018 13:05:00</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -51,7 +51,7 @@ namespace EditTools.Scripts
         /// <remarks></remarks>
         public string GetCustomUI(string ribbonID)
         {
-            return GetResourceText("EditingTools.Ribbon.xml");
+            return GetResourceText("EditingTools.Ribbon_new.xml");
         }
 
         /// <summary>

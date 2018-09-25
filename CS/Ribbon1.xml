@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
-	<ribbon>
-		<tabs>
+  <ribbon>
+    <tabs>
 			<tab
-					id="tabEditTools"
+					id="tabEditingTools"
 					getLabel="GetLabelText"
 					insertAfterMso="TabHome"
           keytip="ET"
@@ -13,21 +13,32 @@
 						label="Editing"
 						imageMso="Copy"
 						>
+					<dropDown
+							id="drpLanguages"
+							label="Proof Language"
+							getItemLabel="GetItemLabel"
+							onAction="OnAction_Dropdown"
+							getItemCount="GetItemCount"
+							getSelectedItemID="GetSelectedItemID"
+							sizeString= "XXXXXXXXXXXXXXXXXXX"
+							screentip="Update Shape(s) Color"
+							supertip="Update the color for the selected shapes"
+					/>
 					<button
 							id="btnApplyLanguage"
 							label="Apply Language"
 							onAction="OnAction"
-							imageMso="Copy"
+							imageMso="SetLanguage"
 							size="normal"
 							screentip="Apply Language"
 							supertip="Apply Language..."
               keytip="AL"
 							/>
-        	<button
+					<button
 							id="btnFindSingularData"
 							label="Find Singular Data"
 							onAction="OnAction"
-							imageMso="Copy"
+							imageMso="Insights"
 							size="normal"
 							screentip="Find Singular Data"
 							supertip="Find Singular Data..."
@@ -43,8 +54,8 @@
 							id="btnWordList"
 							label="Word List"
 							onAction="OnAction"
-							imageMso="FormatAsTableGallery"
-							size="large"
+							imageMso="ReviewShowMarkupMenu"
+							size="normal"
 							screentip="Word List"
 							supertip="Word List..."
               keytip="WL"
@@ -53,8 +64,8 @@
 							id="btnWordFrequencyList"
 							label="Word Frequency List"
 							onAction="OnAction"
-							imageMso="FormatAsTableGallery"
-							size="large"
+							imageMso="ReviewShowMarkupMenu"
+							size="normal"
 							screentip="Word Frequency List"
 							supertip="Word Frequency List..."
               keytip="WFL"
@@ -63,21 +74,85 @@
 							id="btnCheckProperNouns"
 							label="Check Proper Nouns"
 							onAction="OnAction"
-							imageMso="FormatAsTableGallery"
-							size="large"
+							imageMso="SpellingAndGrammar"
+							size="normal"
 							screentip="Check Proper Nouns"
 							supertip="Check Proper Nouns..."
               keytip="WL"
 							/>
-          <button
+					<separator
+						id="separator1"
+					/>
+					<editBox
+							id="txtMinPhraseLen"
+							label="Min. Phrase Length"
+							onChange="OnChange"
+							getText="GetLabelText"
+							sizeString= "XXX"
+							maxLength="1"
+							screentip="Revision Character"
+							supertip="This character will appear in the middle of the triangle."
+						/>
+					<editBox
+							id="txtMaxPhraseLen"
+							label="Max. Phrase Length"
+							onChange="OnChange"
+							getText="GetLabelText"
+							sizeString= "XXX"
+							maxLength="1"
+							screentip="Revision Character"
+							supertip="This character will appear in the middle of the triangle."
+						/>
+					<button
 							id="btnPhraseFrequencyList"
 							label="Phrase Frequency List"
 							onAction="OnAction"
-							imageMso="FormatAsTableGallery"
-							size="large"
+							imageMso="ReviewShowMarkupMenu"
+							size="normal"
 							screentip="Phrase Frequency List"
 							supertip="Phrase Frequency List..."
               keytip="PFL"
+							/>
+				</group>
+				<group
+					id="grpFinishing"
+					label="Finishing"
+					imageMso="Help">
+					<button
+						id="btnAcceptFormattingChanges"
+						label="Accept Formatting Changes"
+						onAction="OnAction"
+						imageMso="ReviewAcceptChange"
+						size="large"
+						screentip="Find Singular Data"
+						supertip="Find Singular Data..."
+						keytip="FSD"
+							/>
+				</group>
+				<group
+					id="grpBoilerplate"
+					label="Boilerplate"
+					imageMso="Help">
+					<dropDown
+							id="drpComments"
+							label="Comments"
+							getItemLabel="GetItemLabel"
+							onAction="OnAction_Dropdown"
+							getItemCount="GetItemCount"
+							getSelectedItemID="GetSelectedItemID"
+							sizeString= "XXXXXXXXXXXXXXXXXXX"
+							screentip="Update Shape(s) Color"
+							supertip="Update the color for the selected shapes"
+					/>
+					<button
+							id="btnApplyComment"
+							label="Apply Comment"
+							onAction="OnAction"
+							imageMso="ReviewNewComment"
+							size="normal"
+							screentip="Apply Language"
+							supertip="Apply Language..."
+              keytip="AL"
 							/>
 				</group>
 				<group
@@ -157,5 +232,6 @@
 				</group>
 			</tab>
 		</tabs>
-	</ribbon>
+  </ribbon>
 </customUI>
+
