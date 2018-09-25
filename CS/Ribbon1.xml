@@ -219,16 +219,19 @@
 							getLabel="GetLabelText"
 							getEnabled="False"
 							/>
+					<box id="boxCopyright" boxStyle="horizontal">
 					<labelControl
 							id="txtCopyright"
 							getLabel="GetLabelText"
 							getEnabled="False"
 							/>
-					<button
-							id="btnStart"
-							onAction="OnAction"
-              keytip="RUN"
+						<button
+								id="btnCopyrightLogo"
+								enabled="false"
+								getImage="GetButtonImage"
+								size="normal"
 							/>
+				</box>
 				</group>
 			</tab>
 		</tabs>

@@ -74,6 +74,30 @@ namespace EditTools
             }
         }
 
+        /// <summary> 
+        /// Assigns an image to a button on the ribbon in the xml file
+        /// </summary>
+        /// <param name="control">Represents the object passed into the callback procedure of a control in a ribbon or another user interface that can be customized by using Office Fluent ribbon extensibility. </param>
+        /// <returns>A method that returns a bitmap image for the control id. </returns> 
+        public System.Drawing.Bitmap GetButtonImage(Office.IRibbonControl control)
+        {
+            try
+            {
+                switch (control.Id)
+                {
+                    case "btnCopyrightLogo":
+                        return Properties.Resources.logo;
+                    default:
+                        return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.DisplayMessage(ex);
+                return null;
+            }
+        }
+
         #endregion
 
         #region Helpers
