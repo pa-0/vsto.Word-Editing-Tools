@@ -1,15 +1,15 @@
 # Editing Tools
 
-This VSTO Add-In is used for various editing and proofing tools including: one-click language applicator, "singular data" finder, word list generator, word frequency generator, proper noun discrepancy checker, one-click "accept formatting changes," and comment boilerplate manager.
+This VSTO Add-In is used for various editing and proofing tools including: one-click language applicator, "singular data" finder, word list generator, word frequency generator, proper noun discrepancy checker, one-click "accept formatting changes," and comment boilerplate manager. I'm currently migrating the functionality from the ribbon Visual Designer to XML.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE "MIT License Copyright © Aaron Dalton")
 [![Latest Release](https://img.shields.io/github/release/Office-projects/Word-Editing-Tools.svg?label=latest%20release)](https://github.com/Office-projects/Word-Editing-Tools/releases)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/Office-projects/Word-Editing-Tools/latest.svg)](https://github.com/Office-projects/Word-Editing-Tools)
 [![GitHub issues](https://img.shields.io/github/issues/Office-projects/Word-Editing-Tools.svg)](https://github.com/Office-projects/Word-Editing-Tools/issues)
 
-![Screen Capture](screen-capture.jpg)
-
------
+<h1 align="left">
+  <img src="Images/ReadMe/ribbon.png" />
+</h1>
 
 ## Table of Contents
 - <a href="#install">Install</a>
