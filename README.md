@@ -20,7 +20,7 @@ This VSTO Add-In is used for various editing and proofing tools including: one-c
 
 <a id="user-content-install" class="anchor" href="#install" aria-hidden="true"> </a>
 ## Install
-Instructions for installation of VSTO version.
+Instructions for installation of VSTO version...
 
 ### VSTO
 How to install the VSTO version
