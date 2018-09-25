@@ -7,7 +7,9 @@ This VSTO Add-In is used for various editing and proofing tools including: one-c
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/Office-projects/Word-Editing-Tools/latest.svg)](https://github.com/Office-projects/Word-Editing-Tools)
 [![GitHub issues](https://img.shields.io/github/issues/Office-projects/Word-Editing-Tools.svg)](https://github.com/Office-projects/Word-Editing-Tools/issues)
 
-![Screen Capture](screen-capture.jpg)
+<h1 align="left">
+  <img src="Images/ReadMe/ribbon.png" />
+</h1>
 
 -----
 
