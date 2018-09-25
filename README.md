@@ -11,8 +11,6 @@ This VSTO Add-In is used for various editing and proofing tools including: one-c
   <img src="Images/ReadMe/ribbon.png" />
 </h1>
 
------
-
 ## Table of Contents
 - <a href="#install">Install</a>
 - <a href="#dependencies">Dependencies</a>
