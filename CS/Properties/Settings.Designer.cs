@@ -26,12 +26,12 @@ namespace EditTools.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public string Options_DistanceMin {
+        public int Options_ProperNounDistanceMin {
             get {
-                return ((string)(this["Options_DistanceMin"]));
+                return ((int)(this["Options_ProperNounDistanceMin"]));
             }
             set {
-                this["Options_DistanceMin"] = value;
+                this["Options_ProperNounDistanceMin"] = value;
             }
         }
         
@@ -44,12 +44,12 @@ namespace EditTools.Properties {
   <string>(s)</string>
   <string>AER style does not support the use of ""(s)."" It is unnecessary. Both the Alberta and Canada Interpretation Acts state that words in the singular include the plural and vice-versa. Just use the plural.</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection Options_Boilerplate {
+        public global::System.Collections.Specialized.StringCollection Options_StandardComments {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Options_Boilerplate"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["Options_StandardComments"]));
             }
             set {
-                this["Options_Boilerplate"] = value;
+                this["Options_StandardComments"] = value;
             }
         }
         

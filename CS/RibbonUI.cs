@@ -69,7 +69,7 @@ namespace EditTools
         {
             //Boilerplate
             dd_Boilerplate.Items.Clear();
-            StringCollection bps = Properties.Settings.Default.Options_Boilerplate;
+            StringCollection bps = Properties.Settings.Default.Options_StandardComments;
             List<string> keys = new List<string>(); ;
             for (int i = 0; i < bps.Count; i++)
             {
@@ -134,7 +134,7 @@ namespace EditTools
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement("boilerplate");
-                    StringCollection sc = Properties.Settings.Default.Options_Boilerplate;
+                    StringCollection sc = Properties.Settings.Default.Options_StandardComments;
                     for (int i = 0; i < sc.Count - 1; i += 2)
                     {
                         writer.WriteStartElement("entry");
@@ -275,7 +275,7 @@ namespace EditTools
             //Edit Distance
             List<string> dtested = new List<string>();
             int mindist;
-            int.TryParse(Properties.Settings.Default.Options_DistanceMin, out mindist);
+            int.TryParse(Properties.Settings.Default.Options_ProperNounDistanceMin.ToString(), out mindist);
             if (mindist == 0)
             {
                 mindist = 2;
@@ -406,7 +406,7 @@ namespace EditTools
         private void btn_ApplyBoilerplate_Click(object sender, RibbonControlEventArgs e)
         {
             //get the text from the settings
-            StringCollection bps = Properties.Settings.Default.Options_Boilerplate;
+            StringCollection bps = Properties.Settings.Default.Options_StandardComments;
             Dictionary<string, string> dict = new Dictionary<string, string>();
             for (int i = 0; i < bps.Count - 1; i++)
             {

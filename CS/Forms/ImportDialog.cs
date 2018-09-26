@@ -35,7 +35,7 @@ namespace EditTools
 
         private void btn_Import_Click(object sender, EventArgs e)
         {
-            StringCollection sc = Properties.Settings.Default.Options_Boilerplate;
+            StringCollection sc = Properties.Settings.Default.Options_StandardComments;
             Dictionary<string, string> dict = new Dictionary<string, string>();
             for (int i = 0; i < sc.Count - 1; i += 2)
             {
@@ -79,7 +79,7 @@ namespace EditTools
                 newsc.Add(key);
                 newsc.Add(dict[key]);
             }
-            Properties.Settings.Default.Options_Boilerplate = newsc;
+            Properties.Settings.Default.Options_StandardComments = newsc;
             Properties.Settings.Default.Save();
             MessageBox.Show("Import complete.");
         }

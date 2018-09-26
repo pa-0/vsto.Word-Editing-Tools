@@ -242,9 +242,9 @@
     "o add/remove/edit boilerplate";
             this.btn_ApplyBoilerplate.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_ApplyBoilerplate_Click);
             // 
-            // Ribbon1
+            // RibbonUI
             // 
-            this.Name = "Ribbon1";
+            this.Name = "RibbonUI";
             this.RibbonType = "Microsoft.Word.Document";
             this.Tabs.Add(this.EditingTools);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon1_Load);

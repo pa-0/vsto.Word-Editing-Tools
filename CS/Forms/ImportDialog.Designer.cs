@@ -139,14 +139,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 229);
+            this.ControlBox = false;
             this.Controls.Add(this.grp_Duplicates);
             this.Controls.Add(this.btn_Import);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.btn_ImportSelect);
             this.Controls.Add(this.txt_ImportFile);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ImportDialog";
-            this.Text = "Import Boilerplate";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Import Standard Comments";
             this.grp_Duplicates.ResumeLayout(false);
             this.grp_Duplicates.PerformLayout();
             this.ResumeLayout(false);

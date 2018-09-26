@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace EditTools.TaskPane
 {
@@ -54,6 +56,6 @@ namespace EditTools.TaskPane
             Properties.Settings.Default.Save();
             Scripts.Ribbon.ribbonref.InvalidateRibbon();
         }
-        
+
     }
 }

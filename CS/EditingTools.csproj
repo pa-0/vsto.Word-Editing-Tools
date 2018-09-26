@@ -316,6 +316,9 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Forms\ImportDialog.resx">
+      <DependentUpon>ImportDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -334,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RibbonUI.resx">
       <DependentUpon>RibbonUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskPane\Comments.resx">
+      <DependentUpon>Comments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TaskPane\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
@@ -360,6 +366,12 @@
     <Compile Include="Scripts\Ribbon.cs" />
     <Compile Include="Scripts\ShortDoubleMetaphone.cs" />
     <Compile Include="Scripts\TextHelpers.cs" />
+    <Compile Include="TaskPane\Comments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskPane\Comments.designer.cs">
+      <DependentUpon>Comments.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaskPane\Settings.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -79,7 +79,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(251, 20);
             this.textBox1.TabIndex = 1;
-            this.textBox1.Text = global::EditTools.Properties.Settings.Default.Options_DistanceMin;
+            this.textBox1.Text = "2";
             // 
             // lbl_Boilerplate
             // 
