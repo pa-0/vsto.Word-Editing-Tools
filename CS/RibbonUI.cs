@@ -38,10 +38,10 @@ namespace EditTools
                 item.Label = lang.Item1;
                 item.Tag = lang.Item2.ID;
                 dd_Langs.Items.Add(item);
-                if (lang.Item1 == Properties.Settings.Default.Options_ProofLanguage)
-                {
-                    dd_Langs.SelectedItem = item;
-                }
+                //if (lang.Item1 == Properties.Settings.Default.Options_ProofLanguage)
+                //{
+                //    dd_Langs.SelectedItem = item;
+                //}
             }
             uint minlen = Properties.Settings.Default.Options_PhraseLengthMin;
             uint maxlen = Properties.Settings.Default.Options_PhraseLengthMax;
@@ -104,7 +104,7 @@ namespace EditTools
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
 
             RibbonDropDownItem item = dd_Langs.SelectedItem;
-            Properties.Settings.Default.Options_ProofLanguage = item.Label;
+            //Properties.Settings.Default.Options_ProofLanguage = item.Label;
             Properties.Settings.Default.Save();
             foreach (Word.Range rng in TextHelpers.GetText(doc))
             {

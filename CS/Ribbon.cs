@@ -5,7 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
+//using System.Text;
+//using System.Windows.Forms;
+using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using Office = Microsoft.Office.Core;
 using Word = Microsoft.Office.Interop.Word;
@@ -76,7 +78,7 @@ namespace EditTools
             }
             return null;
         }
-        
+
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
             this.ribbon = ribbonUI;
@@ -101,8 +103,8 @@ namespace EditTools
                         //}
                         //else
                         //{
-                            return AssemblyInfo.Title;
-                        //}
+                        return AssemblyInfo.Title;
+                    //}
                     case "txtCopyright":
                         return "© " + AssemblyInfo.Copyright;
                     case "txtDescription":
@@ -161,8 +163,20 @@ namespace EditTools
                 //Ribbon.AppVariables.ControlLabel = GetLabelText(control);
                 switch (control.Id)
                 {
+                    case "btnProofingMenu":
+                        OpenProofingMenu();
+                        break;
+                    case "btnApplyLanguage":
+                        ApplyLanguage();
+                        break;
+                    case "btnApplyComments":
+                        ApplyComments();
+                        break;
                     case "btnSingularData":
                         SingularData();
+                        break;
+                    case "btnProperNouns":
+                        ProperNouns();
                         break;
                     case "btnWordList":
                         WordList();
@@ -170,14 +184,8 @@ namespace EditTools
                     case "btnWordFrequencyList":
                         WordFrequencyList();
                         break;
-                    case "btnProperNouns":
-                        ProperNouns();
-                        break;
                     case "btnPhraseList":
                         PhraseList();
-                        break;
-                    case "btnProofingMenu":
-                        OpenProofingMenu();
                         break;
                     case "btnAcceptChanges":
                         AcceptChanges();
@@ -298,208 +306,43 @@ namespace EditTools
 
         }
 
-        public void PhraseList()
+        public void ApplyLanguage()
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-            uint newminlen;
-            uint newmaxlen;
-            UInt32.TryParse(Properties.Settings.Default.Options_PhraseLengthMin.ToString(), out newminlen);
-            UInt32.TryParse(Properties.Settings.Default.Options_PhraseLengthMax.ToString(), out newmaxlen);
-            if ((newminlen != 0) && (newmaxlen != 0) && (newminlen <= newmaxlen))
+            Properties.Settings.Default.Save();
+            foreach (Word.Range rng in TextHelpers.GetText(doc))
             {
-                Properties.Settings.Default.Options_PhraseLengthMin = newminlen;
-                Properties.Settings.Default.Options_PhraseLengthMax = newmaxlen;
-                Properties.Settings.Default.Save();
-
-                Dictionary<string, uint> phrases = new Dictionary<string, uint>();
-                //Iterate through all text
-                foreach (Word.Range rng in TextHelpers.GetText(doc))
-                {
-                    //Break into sentences
-                    foreach (Word.Range sentence in rng.Sentences)
-                    {
-                        //Strip punctuation
-                        string nopunc = TextHelpers.StripPunctuation(sentence.Text);
-                        nopunc = nopunc.Replace("  ", " ");
-                        //Break into words
-                        string[] words = nopunc.Split(' ');
-                        //Extract phrases
-                        for (uint i = newminlen; i <= newmaxlen; i++)
-                        {
-                            for (int start = 0; start < words.Length - i; start++)
-                            {
-                                List<string> phraselst = new List<string>();
-                                for (int idx = 0; idx < i; idx++)
-                                {
-                                    phraselst.Add(words[start + idx]);
-                                }
-                                string phrase = string.Join(" ", phraselst).ToLower();
-                                //Add to data structre
-                                if (phrases.ContainsKey(phrase))
-                                {
-                                    phrases[phrase]++;
-                                }
-                                else
-                                {
-                                    phrases[phrase] = 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                //Display results
-
-                //Create new document
-                Word.Document newdoc = Globals.ThisAddIn.Application.Documents.Add();
-                Word.Paragraph pgraph;
-
-                //Intro text
-                pgraph = newdoc.Content.Paragraphs.Add();
-                pgraph.set_Style(newdoc.Styles["Heading 1"]);
-                pgraph.Range.Text = "Phrase Frequency List\n";
-                pgraph = newdoc.Content.Paragraphs.Add();
-                pgraph.set_Style(newdoc.Styles["Normal"]);
-                pgraph.Range.Text = "Punctuation (other than apostrophes) has been removed. All words have been lowercased for comparison.\n";
-
-                pgraph = newdoc.Content.Paragraphs.Add();
-                pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
-                Word.Section sec = newdoc.Sections[2];
-                sec.PageSetup.TextColumns.SetCount(2);
-
-                var phraselist = phrases.Where(x => x.Value > 1).ToList();
-                phraselist.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
-                foreach (var pair in phraselist)
-                {
-                    pgraph = newdoc.Content.Paragraphs.Add();
-                    pgraph.set_Style(newdoc.Styles["Normal"]);
-                    pgraph.Range.Text = pair.Key + "\t" + pair.Value.ToString() + "\n";
-                }
-
-                pgraph = newdoc.Content.Paragraphs.Add();
-                pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
-                newdoc.GrammarChecked = true;
+                rng.LanguageID = Properties.Settings.Default.Options_ProofLanguageID;
+                rng.NoProofing = 0;
             }
-            else
-            {
-                //MessageBox.Show("The phrase length fields must contain numbers greater than zero, and the minimum length must be less than or equal to the maximum length.");
-            }
+            Globals.ThisAddIn.Application.CommandBars.ExecuteMso("SetLanguage");
         }
 
-        public void WordFrequencyList()
+        public void ApplyComments()
         {
-            //ProgressDialog d = new ProgressDialog();
-            //d.Show();
-
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-            Dictionary<string, uint> wordlist = new Dictionary<string, uint>();
-            Regex re_allnums = new Regex(@"^\d+$");
-
-            IEnumerable<Word.Range> textranges = TextHelpers.GetText(doc);
-            //d.pbMax = textranges.Count();
-            //d.pbVal = 0;
-            foreach (Word.Range rng in textranges)
+            Properties.Settings.Default.Save();
+            StringCollection comments = Properties.Settings.Default.Options_StandardComments;
+            for (int i = 0; i < comments.Count - 1; i++)
             {
-                //d.pbVal++;
-                //Application.StatusBar = Left("Importing Data... | " & Format(App.EndTime - App.StartTime, "hh:mm:ss") & " | (" & Ribbon.fileNbr & " of " & App.FileTotal & ") " & Format(Ribbon.fileNbr / App.FileTotal, "0.0%") & " | " & filePath, 255)
-                //Word.Application.StatusBar = "";
-                //Word.Application.StatusBar = "test in status bar";
-                string txt = rng.Text;
-
-                //strip punctuation
-                txt = TextHelpers.StripPunctuation(txt);
-
-
-                string[] substrs = Regex.Split(txt, @"\s+");
-                foreach (string word in substrs)
+                string commentString = comments[i];
+                string commentText = comments[i + 1];
+                Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+                Word.Range rng = doc.Content;
+                rng.Find.Forward = true;
+                rng.Find.Text = commentString;
+                rng.Find.Execute();
+                while (rng.Find.Found)
                 {
-                    Match m = re_allnums.Match(word);
-                    if (!m.Success)
+                    rng.Select();
+                    Word.Selection selection = Globals.ThisAddIn.Application.Selection;
+                    if (selection.Comments.Count == 0)  // don't create the comment if it already exists
                     {
-                        if (word.Trim() != "")
-                        {
-                            if (wordlist.ContainsKey(word))
-                            {
-                                wordlist[word]++;
-                            }
-                            else
-                            {
-                                wordlist.Add(word, 1);
-                            }
-                        }
+                        selection.Comments.Add(selection.Range, commentText);
+                        rng.Find.Execute();
                     }
-
                 }
             }
-            //Debug.WriteLine("Counts tabulated. Time elapsed: " + watch.Elapsed.ToString());
-            watch.Restart();
 
-            //Create new document
-            Word.Document newdoc = Globals.ThisAddIn.Application.Documents.Add();
-            Word.Paragraph pgraph;
-
-            //Intro text
-            pgraph = newdoc.Content.Paragraphs.Add();
-            pgraph.set_Style(newdoc.Styles["Heading 1"]);
-            pgraph.Range.Text = "Word Frequency List\n";
-            pgraph = newdoc.Content.Paragraphs.Add();
-            pgraph.set_Style(newdoc.Styles["Normal"]);
-            pgraph.Range.Text = "Capitalization is retained as is. That means that words that appear at the beginning of a sentence will appear capitalized. Don't forget that you can sort the table!\n";
-            pgraph = newdoc.Content.Paragraphs.Add();
-            pgraph.set_Style(newdoc.Styles["Normal"]);
-            pgraph.Range.Text = "Total words found (case sensitive): " + wordlist.Count.ToString() + "\n";
-
-            pgraph = newdoc.Content.Paragraphs.Add();
-            pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
-            Word.Section sec = newdoc.Sections[2];
-            sec.PageSetup.TextColumns.SetCount(3);
-
-            var words = wordlist.ToList();
-            words.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
-            newdoc.Tables.Add(pgraph.Range, words.Count, 2);
-            //newdoc.Tables.Add(pgraph.Range, 1, 2);
-            newdoc.Tables[1].AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
-            newdoc.Tables[1].AllowAutoFit = true;
-            //d.pbMax = words.Count;
-            //d.pbVal = 0;
-            int row = 1;
-            foreach (var pair in words)
-            {
-                //d.pbVal++;
-                //newdoc.Tables[1].Rows.Add();
-                Word.Cell cell = newdoc.Tables[1].Cell(row, 1);
-                cell.Range.Text = pair.Key;
-                cell = newdoc.Tables[1].Cell(row, 2);
-                cell.Range.Text = pair.Value.ToString();
-                row++;
-            }
-
-            pgraph = newdoc.Content.Paragraphs.Add();
-            pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
-            newdoc.GrammarChecked = true;
-            //Debug.WriteLine("All done. Time elapsed: " + watch.Elapsed.ToString());
-            watch.Stop();
-            //d.Hide();
-        }
-
-        public void AcceptChanges()
-        {
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-            Word.Window win = Globals.ThisAddIn.Application.ActiveWindow;
-            Word.View view = win.View;
-
-            view.ShowComments = false;
-            view.ShowInkAnnotations = false;
-            view.ShowInsertionsAndDeletions = false;
-
-            doc.AcceptAllRevisionsShown();
-
-            view.ShowComments = true;
-            view.ShowInkAnnotations = true;
-            view.ShowInsertionsAndDeletions = true;
-            //MessageBox.Show("Formatting changes have been accepted.");
         }
 
         public void SingularData()
@@ -865,20 +708,208 @@ namespace EditTools
             newdoc.GrammarChecked = true;
         }
 
-        public void SetLanguage()
+        public void WordFrequencyList()
         {
-            //Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            //ProgressDialog d = new ProgressDialog();
+            //d.Show();
 
-            //RibbonDropDownItem item = dd_Langs.SelectedItem;
-            //Properties.Settings.Default.Options_ProofLanguage = item.Label;
-            //Properties.Settings.Default.Save();
-            //foreach (Word.Range rng in TextHelpers.GetText(doc))
-            //{
-            //    rng.LanguageID = (Word.WdLanguageID)item.Tag;
-            //    rng.NoProofing = 0;
-            //}
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Dictionary<string, uint> wordlist = new Dictionary<string, uint>();
+            Regex re_allnums = new Regex(@"^\d+$");
 
-            //MessageBox.Show("All text marked as '" + item.Label + "'.");
+            IEnumerable<Word.Range> textranges = TextHelpers.GetText(doc);
+            //d.pbMax = textranges.Count();
+            //d.pbVal = 0;
+            foreach (Word.Range rng in textranges)
+            {
+                //d.pbVal++;
+                //Application.StatusBar = Left("Importing Data... | " & Format(App.EndTime - App.StartTime, "hh:mm:ss") & " | (" & Ribbon.fileNbr & " of " & App.FileTotal & ") " & Format(Ribbon.fileNbr / App.FileTotal, "0.0%") & " | " & filePath, 255)
+                //Word.Application.StatusBar = "";
+                //Word.Application.StatusBar = "test in status bar";
+                string txt = rng.Text;
+
+                //strip punctuation
+                txt = TextHelpers.StripPunctuation(txt);
+
+
+                string[] substrs = Regex.Split(txt, @"\s+");
+                foreach (string word in substrs)
+                {
+                    Match m = re_allnums.Match(word);
+                    if (!m.Success)
+                    {
+                        if (word.Trim() != "")
+                        {
+                            if (wordlist.ContainsKey(word))
+                            {
+                                wordlist[word]++;
+                            }
+                            else
+                            {
+                                wordlist.Add(word, 1);
+                            }
+                        }
+                    }
+
+                }
+            }
+            //Debug.WriteLine("Counts tabulated. Time elapsed: " + watch.Elapsed.ToString());
+            watch.Restart();
+
+            //Create new document
+            Word.Document newdoc = Globals.ThisAddIn.Application.Documents.Add();
+            Word.Paragraph pgraph;
+
+            //Intro text
+            pgraph = newdoc.Content.Paragraphs.Add();
+            pgraph.set_Style(newdoc.Styles["Heading 1"]);
+            pgraph.Range.Text = "Word Frequency List\n";
+            pgraph = newdoc.Content.Paragraphs.Add();
+            pgraph.set_Style(newdoc.Styles["Normal"]);
+            pgraph.Range.Text = "Capitalization is retained as is. That means that words that appear at the beginning of a sentence will appear capitalized. Don't forget that you can sort the table!\n";
+            pgraph = newdoc.Content.Paragraphs.Add();
+            pgraph.set_Style(newdoc.Styles["Normal"]);
+            pgraph.Range.Text = "Total words found (case sensitive): " + wordlist.Count.ToString() + "\n";
+
+            pgraph = newdoc.Content.Paragraphs.Add();
+            pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
+            Word.Section sec = newdoc.Sections[2];
+            sec.PageSetup.TextColumns.SetCount(3);
+
+            var words = wordlist.ToList();
+            words.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
+            newdoc.Tables.Add(pgraph.Range, words.Count, 2);
+            //newdoc.Tables.Add(pgraph.Range, 1, 2);
+            newdoc.Tables[1].AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
+            newdoc.Tables[1].AllowAutoFit = true;
+            //d.pbMax = words.Count;
+            //d.pbVal = 0;
+            int row = 1;
+            foreach (var pair in words)
+            {
+                //d.pbVal++;
+                //newdoc.Tables[1].Rows.Add();
+                Word.Cell cell = newdoc.Tables[1].Cell(row, 1);
+                cell.Range.Text = pair.Key;
+                cell = newdoc.Tables[1].Cell(row, 2);
+                cell.Range.Text = pair.Value.ToString();
+                row++;
+            }
+
+            pgraph = newdoc.Content.Paragraphs.Add();
+            pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
+            newdoc.GrammarChecked = true;
+            //Debug.WriteLine("All done. Time elapsed: " + watch.Elapsed.ToString());
+            watch.Stop();
+            //d.Hide();
+        }
+
+        public void PhraseList()
+        {
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            uint newminlen;
+            uint newmaxlen;
+            UInt32.TryParse(Properties.Settings.Default.Options_PhraseLengthMin.ToString(), out newminlen);
+            UInt32.TryParse(Properties.Settings.Default.Options_PhraseLengthMax.ToString(), out newmaxlen);
+            if ((newminlen != 0) && (newmaxlen != 0) && (newminlen <= newmaxlen))
+            {
+                Properties.Settings.Default.Options_PhraseLengthMin = newminlen;
+                Properties.Settings.Default.Options_PhraseLengthMax = newmaxlen;
+                Properties.Settings.Default.Save();
+
+                Dictionary<string, uint> phrases = new Dictionary<string, uint>();
+                //Iterate through all text
+                foreach (Word.Range rng in TextHelpers.GetText(doc))
+                {
+                    //Break into sentences
+                    foreach (Word.Range sentence in rng.Sentences)
+                    {
+                        //Strip punctuation
+                        string nopunc = TextHelpers.StripPunctuation(sentence.Text);
+                        nopunc = nopunc.Replace("  ", " ");
+                        //Break into words
+                        string[] words = nopunc.Split(' ');
+                        //Extract phrases
+                        for (uint i = newminlen; i <= newmaxlen; i++)
+                        {
+                            for (int start = 0; start < words.Length - i; start++)
+                            {
+                                List<string> phraselst = new List<string>();
+                                for (int idx = 0; idx < i; idx++)
+                                {
+                                    phraselst.Add(words[start + idx]);
+                                }
+                                string phrase = string.Join(" ", phraselst).ToLower();
+                                //Add to data structre
+                                if (phrases.ContainsKey(phrase))
+                                {
+                                    phrases[phrase]++;
+                                }
+                                else
+                                {
+                                    phrases[phrase] = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Display results
+
+                //Create new document
+                Word.Document newdoc = Globals.ThisAddIn.Application.Documents.Add();
+                Word.Paragraph pgraph;
+
+                //Intro text
+                pgraph = newdoc.Content.Paragraphs.Add();
+                pgraph.set_Style(newdoc.Styles["Heading 1"]);
+                pgraph.Range.Text = "Phrase Frequency List\n";
+                pgraph = newdoc.Content.Paragraphs.Add();
+                pgraph.set_Style(newdoc.Styles["Normal"]);
+                pgraph.Range.Text = "Punctuation (other than apostrophes) has been removed. All words have been lowercased for comparison.\n";
+
+                pgraph = newdoc.Content.Paragraphs.Add();
+                pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
+                Word.Section sec = newdoc.Sections[2];
+                sec.PageSetup.TextColumns.SetCount(2);
+
+                var phraselist = phrases.Where(x => x.Value > 1).ToList();
+                phraselist.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
+                foreach (var pair in phraselist)
+                {
+                    pgraph = newdoc.Content.Paragraphs.Add();
+                    pgraph.set_Style(newdoc.Styles["Normal"]);
+                    pgraph.Range.Text = pair.Key + "\t" + pair.Value.ToString() + "\n";
+                }
+
+                pgraph = newdoc.Content.Paragraphs.Add();
+                pgraph.Range.InsertBreak(Word.WdBreakType.wdSectionBreakContinuous);
+                newdoc.GrammarChecked = true;
+            }
+            else
+            {
+                //MessageBox.Show("The phrase length fields must contain numbers greater than zero, and the minimum length must be less than or equal to the maximum length.");
+            }
+        }
+
+        public void AcceptChanges()
+        {
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Window win = Globals.ThisAddIn.Application.ActiveWindow;
+            Word.View view = win.View;
+
+            view.ShowComments = false;
+            view.ShowInkAnnotations = false;
+            view.ShowInsertionsAndDeletions = false;
+
+            doc.AcceptAllRevisionsShown();
+
+            view.ShowComments = true;
+            view.ShowInkAnnotations = true;
+            view.ShowInsertionsAndDeletions = true;
+            //MessageBox.Show("Formatting changes have been accepted.");
         }
 
         #endregion

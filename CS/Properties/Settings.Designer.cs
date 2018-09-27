@@ -55,18 +55,6 @@ namespace EditTools.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("English (Canada)")]
-        public string Options_ProofLanguage {
-            get {
-                return ((string)(this["Options_ProofLanguage"]));
-            }
-            set {
-                this["Options_ProofLanguage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public uint Options_PhraseLengthMin {
             get {
