@@ -2,7 +2,8 @@
 
 This VSTO Add-In is used for various editing and/or proofing tools including: one-click language applicator, "singular data" finder, word list generator, word frequency generator, proper noun discrepancy checker, one-click "accept formatting changes," and comment(s) manager. I'm currently migrating the functionality from the ribbon Visual Designer to XML
 
-* change "Apply Comments" to a split button and add a button under it to show a taskpane of the comment list.
+* change "Apply Comments" to a split button and add a button under it to show a taskpane of the comment list
+* check if a comment already exists
 * remove "Proofing Menu"
 * update group name from "Proofing" to "Tools"
 * find better icons
