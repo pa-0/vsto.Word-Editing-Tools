@@ -36,7 +36,7 @@ namespace EditTools
         /// <summary>
         /// Settings TaskPane
         /// </summary>
-        public TaskPane.Comments myComments;
+        public TaskPane.Comments myProofingMenu;
 
         /// <summary>
         /// Settings Custom Task Pane
@@ -46,7 +46,7 @@ namespace EditTools
         /// <summary>
         /// Settings Custom Task Pane
         /// </summary>
-        public Microsoft.Office.Tools.CustomTaskPane myTaskPaneComments;
+        public Microsoft.Office.Tools.CustomTaskPane myTaskPaneProofingMenu;
 
         #endregion
 
@@ -176,8 +176,8 @@ namespace EditTools
                     case "btnPhraseList":
                         PhraseList();
                         break;
-                    case "btnComments":
-                        OpenComments();
+                    case "btnProofingMenu":
+                        OpenProofingMenu();
                         break;
                     case "btnAcceptChanges":
                         AcceptChanges();
@@ -208,29 +208,29 @@ namespace EditTools
         /// Opens the comments taskpane
         /// </summary>
         /// <remarks></remarks>
-        public void OpenComments()
+        public void OpenProofingMenu()
         {
             try
             {
-                if (myTaskPaneComments != null)
+                if (myTaskPaneProofingMenu != null)
                 {
-                    if (myTaskPaneComments.Visible == true)
+                    if (myTaskPaneProofingMenu.Visible == true)
                     {
-                        myTaskPaneComments.Visible = false;
+                        myTaskPaneProofingMenu.Visible = false;
                     }
                     else
                     {
-                        myTaskPaneComments.Visible = true;
+                        myTaskPaneProofingMenu.Visible = true;
                     }
                 }
                 else
                 {
-                    myComments = new TaskPane.Comments();
-                    myTaskPaneComments = Globals.ThisAddIn.CustomTaskPanes.Add(myComments, "Proofing Tools");
-                    myTaskPaneComments.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionRight;
-                    myTaskPaneComments.DockPositionRestrict = Office.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoChange;
-                    myTaskPaneComments.Width = 675;
-                    myTaskPaneComments.Visible = true;
+                    myProofingMenu = new TaskPane.Comments();
+                    myTaskPaneProofingMenu = Globals.ThisAddIn.CustomTaskPanes.Add(myProofingMenu, "Proofing Menu");
+                    myTaskPaneProofingMenu.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionRight;
+                    myTaskPaneProofingMenu.DockPositionRestrict = Office.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoChange;
+                    myTaskPaneProofingMenu.Width = 675;
+                    myTaskPaneProofingMenu.Visible = true;
                 }
 
             }
@@ -388,8 +388,8 @@ namespace EditTools
 
         public void WordFrequencyList()
         {
-            ProgressDialog d = new ProgressDialog();
-            d.Show();
+            //ProgressDialog d = new ProgressDialog();
+            //d.Show();
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -398,11 +398,14 @@ namespace EditTools
             Regex re_allnums = new Regex(@"^\d+$");
 
             IEnumerable<Word.Range> textranges = TextHelpers.GetText(doc);
-            d.pbMax = textranges.Count();
-            d.pbVal = 0;
+            //d.pbMax = textranges.Count();
+            //d.pbVal = 0;
             foreach (Word.Range rng in textranges)
             {
-                d.pbVal++;
+                //d.pbVal++;
+                //Application.StatusBar = Left("Importing Data... | " & Format(App.EndTime - App.StartTime, "hh:mm:ss") & " | (" & Ribbon.fileNbr & " of " & App.FileTotal & ") " & Format(Ribbon.fileNbr / App.FileTotal, "0.0%") & " | " & filePath, 255)
+                //Word.Application.StatusBar = "";
+                //Word.Application.StatusBar = "test in status bar";
                 string txt = rng.Text;
 
                 //strip punctuation
@@ -459,12 +462,12 @@ namespace EditTools
             //newdoc.Tables.Add(pgraph.Range, 1, 2);
             newdoc.Tables[1].AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
             newdoc.Tables[1].AllowAutoFit = true;
-            d.pbMax = words.Count;
-            d.pbVal = 0;
+            //d.pbMax = words.Count;
+            //d.pbVal = 0;
             int row = 1;
             foreach (var pair in words)
             {
-                d.pbVal++;
+                //d.pbVal++;
                 //newdoc.Tables[1].Rows.Add();
                 Word.Cell cell = newdoc.Tables[1].Cell(row, 1);
                 cell.Range.Text = pair.Key;
@@ -478,7 +481,7 @@ namespace EditTools
             newdoc.GrammarChecked = true;
             //Debug.WriteLine("All done. Time elapsed: " + watch.Elapsed.ToString());
             watch.Stop();
-            d.Hide();
+            //d.Hide();
         }
 
         public void AcceptChanges()

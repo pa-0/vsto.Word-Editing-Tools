@@ -25,16 +25,6 @@
 							screentip="Update Shape(s) Color"
 							supertip="Update the color for the selected shapes"
 					/>
-					<button
-							id="btnApplyLanguage"
-							label="Apply Language"
-							onAction="OnAction"
-							imageMso="SetLanguage"
-							size="normal"
-							screentip="Apply Language"
-							supertip="Apply Language..."
-              keytip="AL"
-							/>
 				</group>
 				<group
 						id="grpProofing"
@@ -42,16 +32,45 @@
 						imageMso="FormatAsTableGallery"
 						>
 					<button
+							id="btnProofingMenu"
+							label="Proofing Menu"
+							onAction="OnAction"
+							imageMso="ReviewTrackChanges"
+							size="large"
+							screentip="Proofing Menu"
+							supertip="Proofing Menu..."
+              keytip="PM"
+							/>
+					<separator id="sep1"/>
+					<button
+							id="btnApplyLanguage"
+							label="Apply Language"
+							onAction="OnAction"
+							imageMso="SetLanguage"
+							size="large"
+							screentip="Apply Language"
+							supertip="Apply Language..."
+              keytip="AL"
+							/>
+					<button
+							id="btnApplyComments"
+							label="Apply Comments"
+							onAction="OnAction"
+							imageMso="ReviewNewComment"
+							size="large"
+							screentip="Apply Comments"
+							supertip="Apply Comments..."
+							keytip="AC"
+							/>
+					<button
 							id="btnSingularData"
 							label="Singular Data"
 							onAction="OnAction"
 							imageMso="Insights"
-							enabled="false"
 							size="large"
 							screentip="Singular Data"
 							supertip="Find Singular Data..."
-              keytip="FSD"
-							visible="false"
+              keytip="SD"
 							/>
 					<button
 							id="btnProperNouns"
@@ -61,10 +80,10 @@
 							size="large"
 							screentip="Proper Nouns"
 							supertip="Check Proper Nouns..."
-              keytip="WL"
+              keytip="PN"
 							/>
 					<button
-							id="btnWordList"
+							id="btnWordFrequencyList"
 							label="Word List"
 							onAction="OnAction"
 							imageMso="ReviewShowMarkupMenu"
@@ -74,7 +93,7 @@
               keytip="WL"
 							/>
 					<button
-							id="btnWordFrequencyList"
+							id="btnWordFrequencyList2"
 							label="Word Frequency List"
 							onAction="OnAction"
 							imageMso="ReviewShowMarkupMenu"
@@ -93,16 +112,6 @@
 							screentip="Phrase List"
 							supertip="Phrase Frequency List..."
               keytip="PFL"
-							/>
-					<button
-							id="btnComments"
-							label="Proofing Tools"
-							onAction="OnAction"
-							imageMso="ReviewTrackChanges"
-							size="large"
-							screentip="Standard Comments"
-							supertip="Standard Comments..."
-              keytip="AL"
 							/>
 					<editBox
 							id="txtMinPhraseLen"
@@ -124,6 +133,7 @@
 							supertip="Max. Phrase Length..."
 							visible="false"
 						/>
+					<separator id="sep2"/>
 					<button
 						id="btnAcceptChanges"
 						label="Accept Changes"
