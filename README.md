@@ -8,7 +8,7 @@ This VSTO Add-In is used for various editing and/or proofing tools including: on
 [![GitHub issues](https://img.shields.io/github/issues/Office-projects/Word-Editing-Tools.svg)](https://github.com/Office-projects/Word-Editing-Tools/issues)
 
 <h1 align="left">
-  <img src="Images/ReadMe/ribbon.png" />
+  <img src="Images/ReadMe/ribbon1.png" />
 </h1>
 
 ## Table of Contents
