@@ -4,7 +4,7 @@ This VSTO Add-In is used for various editing and/or proofing tools including: on
 
 -----
 
-###To Do List:
+### To Do List:
 
 * change "Apply Comments" to a split button and add a button under it to show a taskpane of the comment list
 * add buttons in the comments taskpane datagridview for search navigation and apply individual comment
