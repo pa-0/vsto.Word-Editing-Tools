@@ -190,7 +190,7 @@ namespace EditTools
                         ProperNouns();
                         break;
                     case "btnWords":
-                        WordList();
+                        WordFrequencyList();
                         break;
                     case "btnWordsList":
                         OpenWords();
@@ -198,7 +198,7 @@ namespace EditTools
                     case "btnWordFrequencyList":
                         WordFrequencyList();
                         break;
-                    case "btnPhraseList":
+                    case "btnPhrases":
                         PhraseList();
                         break;
                     case "btnAcceptChanges":

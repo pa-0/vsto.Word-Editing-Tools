@@ -8,40 +8,11 @@
 					insertAfterMso="TabHome"
           keytip="ET"
 					>
-				<!--<group
-						id="grpEditing"
-						label="Editing"
-						imageMso="Copy"
-						visible="false"
-						>
-					<dropDown
-							id="drpLanguages"
-							label="Language"
-							getItemLabel="GetItemLabel"
-							onAction="OnAction_Dropdown"
-							getItemCount="GetItemCount"
-							getSelectedItemID="GetSelectedItemID"
-							sizeString= "XXXXXXXXXXXXXXXXXXX"
-							screentip="Update Shape(s) Color"
-							supertip="Update the color for the selected shapes"
-					/>
-				</group>-->
 				<group
 						id="grpProofing"
 						label="Tools"
 						imageMso="FormatAsTableGallery"
 						>
-					<!--<button
-							id="btnProofingMenu"
-							label="Proofing Menu"
-							onAction="OnAction"
-							imageMso="ReviewTrackChanges"
-							size="large"
-							screentip="Proofing Menu"
-							supertip="Proofing Menu..."
-              keytip="PM"
-							/>-->
-					<!--<separator id="sep1"/>-->
 					<button
 							id="btnApplyLanguage"
 							label="Apply Language"
@@ -52,18 +23,8 @@
 							supertip="Applies the proofing language from the saved settings value"
               keytip="AL"
 							/>
-					<!--<button
-							id="btnApplyComments"
-							label="Apply Comments"
-							onAction="OnAction"
-							imageMso="ReviewNewComment"
-							size="large"
-							screentip="Apply Comments"
-							supertip="Apply standard comments from a list in the settings"
-							keytip="AC"
-							/>-->
 					<splitButton 
-						id="splitButton" 
+						id="sbnComments" 
 						size="large" 
 						>
 						<button 
@@ -76,14 +37,14 @@
 							keytip="AC"
 							/>
 						<menu 
-							id="menu"
+							id="mnuComments"
 							>
 							<button 
 								id="btnCommentList" 
-								imageMso="ReviewTrackChanges"
+								imageMso="TableInsertGallery"
 								label="Comment List" 
 								onAction="OnAction"
-								screentip="Comment List"
+								screentip="Comment Table"
 								supertip="Open the comment list to view, edit, import, export or apply"
 								/>
 							<!--<dynamicMenu 
@@ -95,74 +56,110 @@
 								/>-->
 						</menu>
 					</splitButton>
-					<button
+					<splitButton
+						id="sbnSingularData"
+						size="large"
+						>
+						<button
 							id="btnSingularData"
+							imageMso="ReviewShowMarkupMenu"
 							label="Singular Data"
 							onAction="OnAction"
-							imageMso="Insights"
-							size="large"
 							screentip="Singular Data"
 							supertip="Find Singular Data..."
-              keytip="SD"
+							keytip="SD"
 							/>
-					<button
+						<menu
+							id="mnuSingularData"
+							>
+							<button
+								id="btnSingularDataList"
+								imageMso="TableInsertGallery"
+								label="Singular Data Table"
+								onAction="OnAction"
+								screentip="Singular Data"
+								supertip="Find Singular Data..."
+								/>
+						</menu>
+					</splitButton>
+					<splitButton
+						id="sbnProperNouns"
+						size="large"
+						>
+						<button
 							id="btnProperNouns"
+							imageMso="ReviewShowMarkupMenu"
 							label="Proper Nouns"
 							onAction="OnAction"
-							imageMso="SpellingAndGrammar"
-							size="large"
 							screentip="Proper Nouns"
 							supertip="Check Proper Nouns..."
-              keytip="PN"
+							keytip="PN"
 							/>
-					<button
-							id="btnWordsList"
+						<menu
+							id="mnuProperNouns"
+							>
+							<button
+								id="btnProperNounsList"
+								imageMso="TableInsertGallery"
+								label="Proper Noun Table"
+								onAction="OnAction"
+								screentip="Proper Nouns"
+								supertip="Check Proper Nouns..."
+								/>
+						</menu>
+					</splitButton>
+					<splitButton
+						id="sbnWords"
+						size="large"
+						>
+						<button
+							id="btnWords"
+							imageMso="ReviewShowMarkupMenu"
 							label="Words"
 							onAction="OnAction"
-							imageMso="ReviewShowMarkupMenu"
-							size="large"
 							screentip="Word List"
 							supertip="Word List..."
-              keytip="WL"
+							keytip="AC"
 							/>
-					<!--<button
-							id="btnWordFrequencyList2"
-							label="Word Frequency List"
-							onAction="OnAction"
+						<menu
+							id="mnuWords"
+							>
+							<button
+								id="btnWordsList"
+								imageMso="TableInsertGallery"
+								label="Word Table"
+								onAction="OnAction"
+								screentip="Word List"
+								supertip="Word List..."
+								/>
+						</menu>
+					</splitButton>
+					<splitButton
+						id="sbnPhrases"
+						size="large"
+						>
+						<button
+							id="btnPhrases"
 							imageMso="ReviewShowMarkupMenu"
-							size="large"
-							screentip="Word Frequency List"
-							supertip="Word Frequency List..."
-              keytip="WFL"
-							/>-->
-					<button
-							id="btnPhraseList"
 							label="Phrases"
 							onAction="OnAction"
-							imageMso="ReviewShowMarkupMenu"
-							size="large"
 							screentip="Phrase List"
-							supertip="Phrase Frequency List..."
-              keytip="PFL"
+							supertip="Phrase List..."
+							keytip="PL"
 							/>
-					<!--<editBox
-							id="txtMinPhraseLen"
-							label="Min. Phrase Length"
-							onChange="OnChange"
-							getText="GetLabelText"
-							sizeString= "XXX"
-							screentip="Min. Phrase Length"
-							supertip="Min. Phrase Length..."
-						/>
-					<editBox
-							id="txtMaxPhraseLen"
-							label="Max. Phrase Length"
-							onChange="OnChange"
-							getText="GetLabelText"
-							sizeString= "XXX"
-							screentip="Max. Phrase Length"
-							supertip="Max. Phrase Length..."
-						/>-->
+						<menu
+							id="mnuPhrases"
+							>
+							<button
+								id="btnPhraseList"
+								imageMso="TableInsertGallery"
+								label="Phrase Table"
+								onAction="OnAction"
+								screentip="Phrase List"
+								supertip="Phrase List..."
+								/>
+						</menu>
+					</splitButton>
 					<separator id="sep2"/>
 					<button
 						id="btnAcceptChanges"
