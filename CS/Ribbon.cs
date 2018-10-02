@@ -36,9 +36,14 @@ namespace EditTools
         public TaskPane.Settings mySettings;
 
         /// <summary>
-        /// Settings TaskPane
+        /// Comments TaskPane
         /// </summary>
-        public TaskPane.Comments myProofingMenu;
+        public TaskPane.Comments myComments;
+
+        /// <summary>
+        /// Words TaskPane
+        /// </summary>
+        public TaskPane.Words myWords;
 
         /// <summary>
         /// Settings Custom Task Pane
@@ -46,9 +51,14 @@ namespace EditTools
         public Microsoft.Office.Tools.CustomTaskPane myTaskPaneSettings;
 
         /// <summary>
-        /// Settings Custom Task Pane
+        /// Comments Custom Task Pane
         /// </summary>
-        public Microsoft.Office.Tools.CustomTaskPane myTaskPaneProofingMenu;
+        public Microsoft.Office.Tools.CustomTaskPane myTaskPaneComments;
+
+        /// <summary>
+        /// Words Custom Task Pane
+        /// </summary>
+        public Microsoft.Office.Tools.CustomTaskPane myTaskPaneWords;
 
         #endregion
 
@@ -163,14 +173,15 @@ namespace EditTools
                 //Ribbon.AppVariables.ControlLabel = GetLabelText(control);
                 switch (control.Id)
                 {
-                    case "btnProofingMenu":
-                        OpenProofingMenu();
-                        break;
+
                     case "btnApplyLanguage":
                         ApplyLanguage();
                         break;
                     case "btnApplyComments":
                         ApplyComments();
+                        break;
+                    case "btnCommentList":
+                        OpenComments();
                         break;
                     case "btnSingularData":
                         SingularData();
@@ -178,8 +189,11 @@ namespace EditTools
                     case "btnProperNouns":
                         ProperNouns();
                         break;
-                    case "btnWordList":
+                    case "btnWords":
                         WordList();
+                        break;
+                    case "btnWordsList":
+                        OpenWords();
                         break;
                     case "btnWordFrequencyList":
                         WordFrequencyList();
@@ -208,6 +222,18 @@ namespace EditTools
 
         }
 
+        public string GetContent(Office.IRibbonControl control)
+        {
+            string dynamicMenu = string.Empty;
+            dynamicMenu = @" < menu xmlns = ""http://schemas.microsoft.com/office/2009/07/customui"" >";
+            dynamicMenu += @" < button id = ""button1"" label = ""Button 1"" />";
+            dynamicMenu += @" < button id = ""button2"" label = ""Button 2"" />";
+            dynamicMenu += @" < button id = ""button3"" label = ""Button 3"" />";
+            dynamicMenu += " </ menu >";
+            return dynamicMenu;
+
+        }
+
         #endregion
 
         #region | Ribbon Buttons |
@@ -216,29 +242,65 @@ namespace EditTools
         /// Opens the comments taskpane
         /// </summary>
         /// <remarks></remarks>
-        public void OpenProofingMenu()
+        public void OpenComments()
         {
             try
             {
-                if (myTaskPaneProofingMenu != null)
+                if (myTaskPaneComments != null)
                 {
-                    if (myTaskPaneProofingMenu.Visible == true)
+                    if (myTaskPaneComments.Visible == true) //it doesn't like this line if already visible and you open a document
                     {
-                        myTaskPaneProofingMenu.Visible = false;
+                        myTaskPaneComments.Visible = false;
                     }
                     else
                     {
-                        myTaskPaneProofingMenu.Visible = true;
+                        myTaskPaneComments.Visible = true;
                     }
                 }
                 else
                 {
-                    myProofingMenu = new TaskPane.Comments();
-                    myTaskPaneProofingMenu = Globals.ThisAddIn.CustomTaskPanes.Add(myProofingMenu, "Proofing Menu");
-                    myTaskPaneProofingMenu.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionRight;
-                    myTaskPaneProofingMenu.DockPositionRestrict = Office.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoChange;
-                    myTaskPaneProofingMenu.Width = 675;
-                    myTaskPaneProofingMenu.Visible = true;
+                    myComments = new TaskPane.Comments();
+                    myTaskPaneComments = Globals.ThisAddIn.CustomTaskPanes.Add(myComments, "Comments");
+                    myTaskPaneComments.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionRight;
+                    myTaskPaneComments.DockPositionRestrict = Office.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoChange;
+                    myTaskPaneComments.Width = 675;
+                    myTaskPaneComments.Visible = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.DisplayMessage(ex);
+            }
+        }
+
+        /// <summary> 
+        /// Opens the words taskpane
+        /// </summary>
+        /// <remarks></remarks>
+        public void OpenWords()
+        {
+            try
+            {
+                if (myTaskPaneWords != null)
+                {
+                    if (myTaskPaneWords.Visible == true) //it doesn't like this line if already visible and you open a document
+                    {
+                        myTaskPaneWords.Visible = false;
+                    }
+                    else
+                    {
+                        myTaskPaneWords.Visible = true;
+                    }
+                }
+                else
+                {
+                    myWords = new TaskPane.Words();
+                    myTaskPaneWords = Globals.ThisAddIn.CustomTaskPanes.Add(myWords, "Words");
+                    myTaskPaneWords.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionRight;
+                    myTaskPaneWords.DockPositionRestrict = Office.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoChange;
+                    myTaskPaneWords.Width = 675;
+                    myTaskPaneWords.Visible = true;
                 }
 
             }
@@ -318,7 +380,7 @@ namespace EditTools
             Globals.ThisAddIn.Application.CommandBars.ExecuteMso("SetLanguage");
         }
 
-        public void ApplyComments()
+        static public void ApplyComments(string comment = "")
         {
             Properties.Settings.Default.Save();
             StringCollection comments = Properties.Settings.Default.Options_StandardComments;
@@ -326,19 +388,22 @@ namespace EditTools
             {
                 string commentString = comments[i];
                 string commentText = comments[i + 1];
-                Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-                Word.Range rng = doc.Content;
-                rng.Find.Forward = true;
-                rng.Find.Text = commentString;
-                rng.Find.Execute();
-                while (rng.Find.Found)
+                if (comment == "" || comment == commentString)
                 {
-                    rng.Select();
-                    Word.Selection selection = Globals.ThisAddIn.Application.Selection;
-                    if (selection.Comments.Count == 0)  // don't create the comment if it already exists
+                    Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+                    Word.Range rng = doc.Content;
+                    rng.Find.Forward = true;
+                    rng.Find.Text = commentString;
+                    rng.Find.Execute();
+                    while (rng.Find.Found)
                     {
-                        selection.Comments.Add(selection.Range, commentText);
-                        rng.Find.Execute();
+                        rng.Select();
+                        Word.Selection selection = Globals.ThisAddIn.Application.Selection;
+                        if (selection.Comments.Count == 0)  // don't create the comment if it already exists
+                        {
+                            selection.Comments.Add(selection.Range, commentText);
+                            rng.Find.Execute();
+                        }
                     }
                 }
             }
@@ -661,23 +726,8 @@ namespace EditTools
 
         public void WordList()
         {
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
             HashSet<string> wordlist = new HashSet<string>();
-
-            foreach (Word.Range rng in TextHelpers.GetText(doc))
-            {
-                string txt = rng.Text;
-
-                //strip punctuation
-                txt = TextHelpers.StripPunctuation(txt);
-
-                //get word list
-                HashSet<string> newwords = TextHelpers.ToWords(txt);
-                wordlist.UnionWith(newwords);
-            }
-
-            //strip words that are all numbers
-            wordlist = TextHelpers.RemoveNumbers(wordlist);
+            wordlist = GetWordList();
 
             //Create new document
             Word.Document newdoc = Globals.ThisAddIn.Application.Documents.Add();
@@ -708,13 +758,31 @@ namespace EditTools
             newdoc.GrammarChecked = true;
         }
 
-        public void WordFrequencyList()
+        static public HashSet<string> GetWordList()
         {
-            //ProgressDialog d = new ProgressDialog();
-            //d.Show();
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            HashSet<string> wordlist = new HashSet<string>();
 
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
+            foreach (Word.Range rng in TextHelpers.GetText(doc))
+            {
+                string txt = rng.Text;
+
+                //strip punctuation
+                txt = TextHelpers.StripPunctuation(txt);
+
+                //get word list
+                HashSet<string> newwords = TextHelpers.ToWords(txt);
+                wordlist.UnionWith(newwords);
+            }
+
+            //strip words that are all numbers
+            wordlist = TextHelpers.RemoveNumbers(wordlist);
+            return wordlist;
+
+        }
+
+        static public Dictionary<string, uint> GetWordFrequencyList()
+        {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
             Dictionary<string, uint> wordlist = new Dictionary<string, uint>();
             Regex re_allnums = new Regex(@"^\d+$");
@@ -732,7 +800,6 @@ namespace EditTools
 
                 //strip punctuation
                 txt = TextHelpers.StripPunctuation(txt);
-
 
                 string[] substrs = Regex.Split(txt, @"\s+");
                 foreach (string word in substrs)
@@ -755,6 +822,20 @@ namespace EditTools
 
                 }
             }
+            return wordlist;
+        }
+
+        public void WordFrequencyList()
+        {
+            //ProgressDialog d = new ProgressDialog();
+            //d.Show();
+
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
+            Dictionary<string, uint> wordlist = new Dictionary<string, uint>();
+            wordlist = GetWordFrequencyList();
+
             //Debug.WriteLine("Counts tabulated. Time elapsed: " + watch.Elapsed.ToString());
             watch.Restart();
 

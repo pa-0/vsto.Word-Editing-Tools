@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Linq;
 using System.Xml;
 using System.Windows.Forms;
@@ -13,12 +12,12 @@ namespace EditTools.TaskPane
     /// <summary>
     /// Comments TaskPane
     /// </summary>
-    public partial class Comments : UserControl
+    public partial class zzzAllTest : UserControl
     {
         /// <summary>
         /// Initialize the controls in the object
         /// </summary>
-        public Comments()
+        public zzzAllTest()
         {
             InitializeComponent();
             LoadTaskPane();
@@ -28,26 +27,8 @@ namespace EditTools.TaskPane
         {
             try
             {
-                dgvComments.Columns.Add(new DataGridViewButtonColumn()
-                {
-                    //Image = Properties.Resources.add,
-                    Name = "btnApply",
-                    HeaderText = " ",
-                    ToolTipText = "Apply",
-                    Resizable = DataGridViewTriState.False,
-                    Width = 25
-                });
-                dgvComments.Columns.Add(new DataGridViewButtonColumn()
-                {
-                    //Image = Properties.Resources.delete,
-                    Name = "btnRemove",
-                    HeaderText = " ",
-                    ToolTipText = "Remove",
-                    Resizable = DataGridViewTriState.False,
-                    Width = 25
-                });
-                dgvComments.Columns.Add("col_Name", "Value");
-                dgvComments.Columns.Add("col_Value", "Comment");
+                dgvComments.Columns.Add("col_Name", "Characters");
+                dgvComments.Columns.Add("col_Value", "Comment Text");
                 dgvComments.Columns["col_Value"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvComments.Columns["col_Value"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                 dgvComments.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -63,20 +44,10 @@ namespace EditTools.TaskPane
                     }
                 }
 
-                int r = 0;
-                int c = 0;
                 foreach (string key in dict.Keys)
                 {
-                    //string[] row = new string[] { key, dict[key] };
-                    //dgvComments.Rows.Add(row);
-
-                    c = 2;
-                    dgvComments.Rows.Add();
-                    dgvComments[c, r].Value = key;
-                    c += 1;
-                    dgvComments[c, r].Value = dict[key];
-                    r += 1;
-
+                    string[] row = new string[] { key, dict[key] };
+                    dgvComments.Rows.Add(row);
                 }
             }
             catch (Exception ex)
@@ -96,8 +67,8 @@ namespace EditTools.TaskPane
                 {
                     if (((string)row.Cells[0].Value != null) && ((string)row.Cells[1].Value != null))
                     {
-                        strings.Add((string)row.Cells[2].Value);
-                        strings.Add((string)row.Cells[3].Value);
+                        strings.Add((string)row.Cells[0].Value);
+                        strings.Add((string)row.Cells[1].Value);
                     }
                 }
                 Properties.Settings.Default.Options_StandardComments.Clear();
@@ -170,7 +141,28 @@ namespace EditTools.TaskPane
 
         private void tsbApplyAll_Click(object sender, EventArgs e)
         {
-            Ribbon.ApplyComments();
+            foreach (DataGridViewRow row in dgvComments.Rows)
+            {
+                string commentString = row.Cells["col_Name"].Value.ToString();
+                string commentText = row.Cells["col_Value"].Value.ToString();
+                Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+                Word.Range rng = doc.Content;
+                rng.Find.Forward = true;
+                rng.Find.Text = commentString;
+                rng.Find.Execute();
+                while (rng.Find.Found)
+                {
+                    rng.Select();
+                    Word.Selection selection = Globals.ThisAddIn.Application.Selection;
+                    if (selection.Comments.Count == 0)  // don't create the comment if it already exists
+                    {
+                        selection.Comments.Add(selection.Range, commentText);
+                        rng.Find.Execute();
+                    }
+                }
+
+            }
+
         }
 
         private void tsbRemoveAll_Click(object sender, EventArgs e)
@@ -181,7 +173,7 @@ namespace EditTools.TaskPane
 
         private void dgvComments_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            string id = dgvComments[2, e.RowIndex].Value.ToString();
+            string id = dgvComments[0, e.RowIndex].Value.ToString();
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
             Word.Find find = doc.Content.Find;
             find.ClearHitHighlight();
@@ -193,57 +185,6 @@ namespace EditTools.TaskPane
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
             Word.Find find = doc.Content.Find;
             find.ClearHitHighlight();
-        }
-
-        private void dgvComments_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-
-            if (e.RowIndex != dgvComments.RowCount - 1)
-            {
-
-                if (e.ColumnIndex == 0)
-                {
-                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                    var w = Properties.Resources.add.Width;
-                    var h = Properties.Resources.add.Height;
-                    var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
-                    var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
-
-                    e.Graphics.DrawImage(Properties.Resources.add, new Rectangle(x, y, w, h));
-                    e.Handled = true;
-                }
-
-                if (e.ColumnIndex == 1)
-                {
-                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                    var w = Properties.Resources.delete.Width;
-                    var h = Properties.Resources.delete.Height;
-                    var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
-                    var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
-
-                    e.Graphics.DrawImage(Properties.Resources.delete, new Rectangle(x, y, w, h));
-                    e.Handled = true;
-                }
-            }
-
-        }
-
-        private void dgvComments_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                string comment = dgvComments[2, e.RowIndex].Value.ToString();
-                Ribbon.ApplyComments(comment);
-            }
-
-            if (e.ColumnIndex == 1)
-            {
-
-            }
         }
     }
 }

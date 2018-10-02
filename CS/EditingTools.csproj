@@ -338,6 +338,12 @@
     <EmbeddedResource Include="RibbonUI.resx">
       <DependentUpon>RibbonUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TaskPane\Words.resx">
+      <DependentUpon>Words.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskPane\zzzAllTest.resx">
+      <DependentUpon>zzzAllTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TaskPane\Comments.resx">
       <DependentUpon>Comments.cs</DependentUpon>
     </EmbeddedResource>
@@ -366,6 +372,18 @@
     <Compile Include="Scripts\Ribbon.cs" />
     <Compile Include="Scripts\ShortDoubleMetaphone.cs" />
     <Compile Include="Scripts\TextHelpers.cs" />
+    <Compile Include="TaskPane\Words.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskPane\Words.designer.cs">
+      <DependentUpon>Words.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskPane\zzzAllTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskPane\zzzAllTest.designer.cs">
+      <DependentUpon>zzzAllTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaskPane\Comments.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -402,6 +420,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

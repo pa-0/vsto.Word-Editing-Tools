@@ -8,7 +8,7 @@
 					insertAfterMso="TabHome"
           keytip="ET"
 					>
-				<group
+				<!--<group
 						id="grpEditing"
 						label="Editing"
 						imageMso="Copy"
@@ -25,13 +25,13 @@
 							screentip="Update Shape(s) Color"
 							supertip="Update the color for the selected shapes"
 					/>
-				</group>
+				</group>-->
 				<group
 						id="grpProofing"
-						label="Proofing"
+						label="Tools"
 						imageMso="FormatAsTableGallery"
 						>
-					<button
+					<!--<button
 							id="btnProofingMenu"
 							label="Proofing Menu"
 							onAction="OnAction"
@@ -40,28 +40,61 @@
 							screentip="Proofing Menu"
 							supertip="Proofing Menu..."
               keytip="PM"
-							/>
-					<separator id="sep1"/>
+							/>-->
+					<!--<separator id="sep1"/>-->
 					<button
 							id="btnApplyLanguage"
 							label="Apply Language"
 							onAction="OnAction"
 							imageMso="SetLanguage"
 							size="large"
-							screentip="Apply Language"
-							supertip="Apply Language..."
+							screentip="Apply Proofing Language"
+							supertip="Applies the proofing language from the saved settings value"
               keytip="AL"
 							/>
-					<button
+					<!--<button
 							id="btnApplyComments"
 							label="Apply Comments"
 							onAction="OnAction"
 							imageMso="ReviewNewComment"
 							size="large"
 							screentip="Apply Comments"
-							supertip="Apply Comments..."
+							supertip="Apply standard comments from a list in the settings"
+							keytip="AC"
+							/>-->
+					<splitButton 
+						id="splitButton" 
+						size="large" 
+						>
+						<button 
+							id="btnApplyComments" 
+							imageMso="ReviewNewComment" 
+							label="Apply Comments" 
+							onAction="OnAction"
+							screentip="Apply Comments"
+							supertip="Apply standard comments from a list in the settings"
 							keytip="AC"
 							/>
+						<menu 
+							id="menu"
+							>
+							<button 
+								id="btnCommentList" 
+								imageMso="ReviewTrackChanges"
+								label="Comment List" 
+								onAction="OnAction"
+								screentip="Comment List"
+								supertip="Open the comment list to view, edit, import, export or apply"
+								/>
+							<!--<dynamicMenu 
+								id="dmnApplyComment" 
+								label="Apply Comment" 
+								getContent="GetContent" 
+								screentip="Apply Comment"
+								supertip="Apply individual standard comment"
+								/>-->
+						</menu>
+					</splitButton>
 					<button
 							id="btnSingularData"
 							label="Singular Data"
@@ -83,8 +116,8 @@
               keytip="PN"
 							/>
 					<button
-							id="btnWordFrequencyList"
-							label="Word List"
+							id="btnWordsList"
+							label="Words"
 							onAction="OnAction"
 							imageMso="ReviewShowMarkupMenu"
 							size="large"
@@ -92,7 +125,7 @@
 							supertip="Word List..."
               keytip="WL"
 							/>
-					<button
+					<!--<button
 							id="btnWordFrequencyList2"
 							label="Word Frequency List"
 							onAction="OnAction"
@@ -101,11 +134,10 @@
 							screentip="Word Frequency List"
 							supertip="Word Frequency List..."
               keytip="WFL"
-							visible="false"
-							/>
+							/>-->
 					<button
 							id="btnPhraseList"
-							label="Phrase List"
+							label="Phrases"
 							onAction="OnAction"
 							imageMso="ReviewShowMarkupMenu"
 							size="large"
@@ -113,7 +145,7 @@
 							supertip="Phrase Frequency List..."
               keytip="PFL"
 							/>
-					<editBox
+					<!--<editBox
 							id="txtMinPhraseLen"
 							label="Min. Phrase Length"
 							onChange="OnChange"
@@ -121,7 +153,6 @@
 							sizeString= "XXX"
 							screentip="Min. Phrase Length"
 							supertip="Min. Phrase Length..."
-							visible="false"
 						/>
 					<editBox
 							id="txtMaxPhraseLen"
@@ -131,8 +162,7 @@
 							sizeString= "XXX"
 							screentip="Max. Phrase Length"
 							supertip="Max. Phrase Length..."
-							visible="false"
-						/>
+						/>-->
 					<separator id="sep2"/>
 					<button
 						id="btnAcceptChanges"
@@ -141,7 +171,7 @@
 						imageMso="ReviewAcceptChange"
 						size="large"
 						screentip="Accept Formatting Changes"
-						supertip="Accept Formatting Changes..."
+						supertip="Accept formatting changes in one click"
 						keytip="FSD"
 							/>
 				</group>
