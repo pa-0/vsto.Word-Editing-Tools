@@ -9,8 +9,6 @@ This VSTO Add-In is used for various editing and/or proofing tools including: on
 * change "Apply Comments" to a split button and add a button under it to show a taskpane of the comment list
 * add buttons in the comments taskpane datagridview for search navigation and apply individual comment
 * check if a comment already exists
-* remove "Proofing Menu"
-* update group name from "Proofing" to "Tools"
 * find better icons
 * update documentation with .gif file and detailed functionality
 
