@@ -338,6 +338,9 @@
     <EmbeddedResource Include="RibbonUI.resx">
       <DependentUpon>RibbonUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TaskPane\Phrases.resx">
+      <DependentUpon>Phrases.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TaskPane\Words.resx">
       <DependentUpon>Words.cs</DependentUpon>
     </EmbeddedResource>
@@ -372,6 +375,12 @@
     <Compile Include="Scripts\Ribbon.cs" />
     <Compile Include="Scripts\ShortDoubleMetaphone.cs" />
     <Compile Include="Scripts\TextHelpers.cs" />
+    <Compile Include="TaskPane\Phrases.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskPane\Phrases.designer.cs">
+      <DependentUpon>Phrases.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaskPane\Words.cs">
       <SubType>UserControl</SubType>
     </Compile>

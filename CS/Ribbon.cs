@@ -299,7 +299,7 @@ namespace EditTools
                     myTaskPaneWords = Globals.ThisAddIn.CustomTaskPanes.Add(myWords, "Words");
                     myTaskPaneWords.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionRight;
                     myTaskPaneWords.DockPositionRestrict = Office.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoChange;
-                    myTaskPaneWords.Width = 675;
+                    myTaskPaneWords.Width = 325;
                     myTaskPaneWords.Visible = true;
                 }
 
