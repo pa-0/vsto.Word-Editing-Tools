@@ -133,5 +133,17 @@ namespace EditTools.Properties {
                 this["Options_ProofLanguageID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Options_DisplayLanguageDialog {
+            get {
+                return ((bool)(this["Options_DisplayLanguageDialog"]));
+            }
+            set {
+                this["Options_DisplayLanguageDialog"] = value;
+            }
+        }
     }
 }

@@ -377,7 +377,7 @@ namespace EditTools
                 rng.LanguageID = Properties.Settings.Default.Options_ProofLanguageID;
                 rng.NoProofing = 0;
             }
-            Globals.ThisAddIn.Application.CommandBars.ExecuteMso("SetLanguage");
+            if (Properties.Settings.Default.Options_DisplayLanguageDialog) { Globals.ThisAddIn.Application.CommandBars.ExecuteMso("SetLanguage"); }
         }
 
         static public void ApplyComments(string comment = "")

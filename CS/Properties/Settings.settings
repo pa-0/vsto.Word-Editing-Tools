@@ -35,5 +35,8 @@
     <Setting Name="Options_ProofLanguageID" Type="Microsoft.Office.Interop.Word.WdLanguageID" Scope="User">
       <Value Profile="(Default)">wdEnglishCanadian</Value>
     </Setting>
+    <Setting Name="Options_DisplayLanguageDialog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
