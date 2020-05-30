@@ -7,7 +7,7 @@ This VSTO Add-In is used for various editing and/or proofing tools including: on
 ### To Do List:
 
 * check if a comment already exists
-* find better icons
+* find better icons  https://github.com/google/material-design-icons
 * update documentation with .gif file and detailed functionality
 
 -----
